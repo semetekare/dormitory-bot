@@ -1,0 +1,73 @@
+.dev-login {
+  color: #fff;
+  padding: 2em 1em;
+  min-height: 100vh;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+.dev-login h2 {
+  font-size: 1.3em;
+  margin-bottom: 0.3em;
+}
+
+.dev-login .section-title {
+  color: #76b852;
+  font-size: 0.85em;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 1.5em 0 0.5em 0;
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid rgba(118, 184, 82, 0.25);
+}
+
+.dev-login .user-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.7em 1em;
+  margin-bottom: 0.3em;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.06);
+  backdrop-filter: blur(10px);
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.dev-login .user-card:hover {
+  background: rgba(118, 184, 82, 0.12);
+}
+
+.dev-login .user-card:active {
+  background: rgba(118, 184, 82, 0.2);
+}
+
+.dev-login .user-card .name {
+  font-weight: 500;
+}
+
+.dev-login .user-card .meta {
+  font-size: 0.8em;
+  color: #aaa;
+  margin-top: 0.15em;
+}
+
+.dev-login .user-card .badge {
+  font-size: 0.75em;
+  padding: 0.2em 0.6em;
+  border-radius: 6px;
+  background: rgba(118, 184, 82, 0.15);
+  color: #76b852;
+  white-space: nowrap;
+}
+
+.dev-login .user-card .badge.debt {
+  background: rgba(220, 53, 69, 0.15);
+  color: #dc3545;
+}
+
+.dev-login .error {
+  color: #dc3545;
+  text-align: center;
+  padding: 2em;
+}

@@ -1,0 +1,38 @@
+# --- Бинарники / сборка ---
+bin/
+*.exe
+dormitory-bot
+
+# --- Секреты и окружение ---
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.crt
+
+# --- Конфиги с локальными значениями ---
+config.yaml
+docker-compose.override.yml
+
+# --- Дампы БД ---
+dump.sql
+*.sql.gz
+
+# --- Служебные каталоги ---
+donor/
+.hermes/
+.hermes.md
+eis-adapter/
+
+# --- Frontend (build и зависимости) ---
+frontend/dist/
+frontend/node_modules/
+
+# --- Разное ---
+*.bpmn
+*.log
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

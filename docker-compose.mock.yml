@@ -1,0 +1,101 @@
+# docker-compose.mock.yml
+# Облегчённый compose для локального тестирования БЕЗ RabbitMQ и eis-adapter.
+# Все EIS-зависимые операции идут через internal/mock/.
+#
+# Запуск:
+#   MOCK_MODE=true docker compose -f docker-compose.mock.yml up -d
+#
+# Доступные пользователи (телефоны):
+#   Employees: 79025643215 (commandant), 79140001122 (duty), 79140001133 (commandant D5),
+#              79140001144 (chairman), 79140001155 (starosta)
+#   Students:  79001234501..79001234509
+
+services:
+  postgres:
+    image: postgres:16
+    container_name: dormitory-bot-postgres-mock
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${DATABASE_USER:-dormitory_user}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD:-dormitory_password}
+      POSTGRES_DB: ${DATABASE_DBNAME:-dormitory_db}
+    volumes:
+      - pgdata_mock:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DATABASE_USER:-dormitory_user} -d ${DATABASE_DBNAME:-dormitory_db}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    networks:
+      - dormitory-mock-net
+
+  redis:
+    image: redis:7
+    container_name: dormitory-bot-redis-mock
+    restart: unless-stopped
+    command: redis-server ${REDIS_PASSWORD:+--requirepass ${REDIS_PASSWORD}}
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    networks:
+      - dormitory-mock-net
+
+  app:
+    build: .
+    container_name: dormitory-bot-app-mock
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    environment:
+      MOCK_MODE: "true"
+      JWT_SECRET: ${JWT_SECRET:-dev-miniapp-secret-key}
+      MAX_BOT_TOKEN: ${MAX_BOT_TOKEN}
+      ENCRYPTION_KEY: ${ENCRYPTION_KEY:-dev-key}
+      TIMEZONE: ${TIMEZONE:-Asia/Irkutsk}
+
+      DATABASE_HOST: postgres
+      DATABASE_PORT: 5432
+      DATABASE_USER: ${DATABASE_USER:-dormitory_user}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD:-dormitory_password}
+      DATABASE_DBNAME: ${DATABASE_DBNAME:-dormitory_db}
+      DATABASE_SSLMODE: ${DATABASE_SSLMODE:-disable}
+
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+      REDIS_DB: ${REDIS_DB:-0}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - ./config:/root/config:ro
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    networks:
+      - dormitory-mock-net
+
+volumes:
+  pgdata_mock:
+
+networks:
+  dormitory-mock-net:
+    name: dormitory-mock-net
+    driver: bridge

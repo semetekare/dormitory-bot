@@ -1,0 +1,91 @@
+services:
+  postgres:
+    image: postgres:16
+    container_name: dormitory-bot-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${DATABASE_USER:-dormitory_user}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD:-dormitory_password}
+      POSTGRES_DB: ${DATABASE_DBNAME:-dormitory_db}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DATABASE_USER:-dormitory_user} -d ${DATABASE_DBNAME:-dormitory_db}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    networks:
+      - dormitory-net
+
+  redis:
+    image: redis:7
+    container_name: dormitory-bot-redis
+    restart: unless-stopped
+    command: redis-server ${REDIS_PASSWORD:+--requirepass ${REDIS_PASSWORD}}
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    networks:
+      - dormitory-net
+
+  app:
+    build: .
+    container_name: dormitory-bot-app
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+      - "8081:8081"
+    environment:
+      MOCK_MODE: "true"
+      JWT_SECRET: ${JWT_SECRET:-dev-miniapp-secret-key}
+      MAX_BOT_TOKEN: ${MAX_BOT_TOKEN}
+      ENCRYPTION_KEY: ${ENCRYPTION_KEY:-dev-key}
+      TIMEZONE: ${TIMEZONE:-Asia/Irkutsk}
+
+      DATABASE_HOST: postgres
+      DATABASE_PORT: 5432
+      DATABASE_USER: ${DATABASE_USER:-dormitory_user}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD:-dormitory_password}
+      DATABASE_DBNAME: ${DATABASE_DBNAME:-dormitory_db}
+      DATABASE_SSLMODE: ${DATABASE_SSLMODE:-disable}
+
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
+      REDIS_DB: ${REDIS_DB:-0}
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - ./config:/root/config:ro
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    networks:
+      - dormitory-net
+
+volumes:
+  pgdata:
+
+networks:
+  dormitory-net:
+    name: dormitory-net
+    driver: bridge

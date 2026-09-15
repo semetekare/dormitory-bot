@@ -1,0 +1,112 @@
+.washmachine_body {
+    border-radius: 0.3em;
+    padding: 1em;
+    width: 6em;
+    height: 6em;
+    background-color: #ffffffcc;
+    position: relative;
+    box-shadow: inset 0 -1.5em 1em rgba(0, 0, 0, 0.3);
+}
+
+.washmachine_body.free {
+    border-top: 0.3em solid #6e6e6e;
+}
+
+.washmachine_body.busy {
+    border-top: 0.3em solid #dc3545;
+}
+
+.washmachine_body.my {
+    border-top: 0.3em solid #0D6E51;
+}
+
+.washmachine_buttons {
+    position: absolute;
+    top: 3%;
+    right: 10%;
+    color: black;
+}
+
+.washmachine_panel {
+    border-radius: 1em;
+    position: absolute;
+    width: 2em;
+    height: 1em;
+    top: 5%;
+    left: 10%;
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.washmachine_drum {
+    width: 2.5em;
+    height: 2.5em;
+    background-color: transparent;
+    position: absolute;
+    top: 35%;
+    left: 30%;
+    border-radius: 50%;
+    box-shadow: inset #333 0em 1.2em 1em;
+}
+
+.washmachine_drum::before {
+    content: '';
+    position: absolute;
+    top: -0.3em;
+    left: -0.3em;
+    right: -0.3em;
+    bottom: -0.3em;
+    border-radius: 50%;
+    border: 0.45em solid #333;
+}
+
+.washmachine_drum::after {
+    content: '';
+    position: absolute;
+    top: -0.3em;
+    left: -0.3em;
+    right: -0.3em;
+    bottom: -0.3em;
+    border-radius: 50%;
+    border: 0.45em solid transparent;
+    mask: conic-gradient(from 0deg,
+            transparent 0deg,
+            transparent 45deg,
+            black 45deg,
+            black 90deg,
+            transparent 90deg,
+            transparent 360deg);
+    -webkit-mask: conic-gradient(from 0deg,
+            transparent 0deg,
+            transparent 45deg,
+            black 45deg,
+            black 90deg,
+            transparent 90deg,
+            transparent 360deg);
+}
+
+.washmachine_drum.busy::after {
+    border-top-color: #dc3545;
+    border-right-color: #dc3545;
+}
+
+.washmachine_drum.my::after {
+    border-top-color: #0D6E51;
+    border-right-color: #0D6E51;
+}
+
+.washmachine_drum.spinning::after {
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

@@ -1,0 +1,23 @@
+stages:
+  - deploy
+
+deploy:
+  stage: deploy
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master"
+  environment:
+    name: production
+    url: http://localhost:8080
+  script:
+    - git config --global --add safe.directory "$WORK_DIR"
+    - cd "$WORK_DIR"
+    - echo "=== Deploying commit ==="
+    - git log -1 --oneline
+    - git pull
+    - echo "=== Changes since last deploy ==="
+    - git log -5 --oneline
+    - docker compose down
+    - docker compose up --build -d --wait
+    - docker image prune -f
+    - echo "=== Deploy complete ==="
+

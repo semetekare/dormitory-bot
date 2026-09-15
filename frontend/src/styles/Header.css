@@ -1,0 +1,50 @@
+.header {
+    display: flex;
+    position: relative;
+    overflow: hidden;
+    min-height: 10em;
+    padding: 2.5em 2em 1em 1em;
+}
+
+.header-title {
+    z-index: 100;
+}
+
+.irgups_line {
+    right: 17%;
+    top: -10%;
+    position: absolute;
+    width: 10em;
+    height: 35em;
+    opacity: 0.3;
+    z-index: 10;
+    rotate: 30deg;
+}
+
+.irgups_line_2 {
+    right: 55%;
+    top: -15%;
+    position: absolute;
+    width: 10em;
+    height: 35em;
+    opacity: 0.3;
+    z-index: 10;
+    rotate: 30deg;
+}
+
+.irgups_line_3 {
+    right: 90%;
+    top: -30%;
+    position: absolute;
+    width: 10em;
+    height: 35em;
+    opacity: 0.3;
+    z-index: 10;
+    rotate: 30deg;
+}
+
+.header-button {
+    position: absolute;
+    top: 5%;
+    right: 2%;
+}

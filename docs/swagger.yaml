@@ -1,0 +1,1184 @@
+basePath: /api/v1
+definitions:
+  api.AuthMeResponse:
+    properties:
+      contract_end_date:
+        type: string
+      contract_number:
+        type: string
+      contract_start_date:
+        type: string
+      dormitory:
+        example: Общежитие №8
+        type: string
+      first_name:
+        example: Артём
+        type: string
+      last_name:
+        type: string
+      middle_name:
+        type: string
+      person_type:
+        example: student
+        type: string
+      room_number:
+        type: string
+      user_id:
+        example: abc6efcd-487b-4b42-a30c-3dbb0a60cfdd
+        type: string
+    type: object
+  api.AuthMiniUser:
+    properties:
+      person_type:
+        example: student
+        type: string
+      user_id:
+        example: abc6efcd-487b-4b42-a30c-3dbb0a60cfdd
+        type: string
+    type: object
+  api.AuthMiniappResponse:
+    properties:
+      token:
+        example: eyJhbG...
+        type: string
+      user:
+        $ref: '#/definitions/api.AuthMiniUser'
+    type: object
+  api.AuthUser:
+    properties:
+      first_name:
+        example: Артём
+        type: string
+      person_type:
+        example: student
+        type: string
+      phone:
+        example: "79001234501"
+        type: string
+      user_id:
+        example: abc6efcd-487b-4b42-a30c-3dbb0a60cfdd
+        type: string
+    type: object
+  api.AuthVerifyResponse:
+    properties:
+      launch_token:
+        example: abc-uuid-token
+        type: string
+      user:
+        $ref: '#/definitions/api.AuthUser'
+    type: object
+  api.ChatLinkItem:
+    properties:
+      dormitory_id:
+        example: b0000000-0000-0000-0000-000000000001
+        type: string
+      floor_id:
+        example: b0000000-0000-0000-0000-000000010001
+        type: string
+      id:
+        example: b0000000-0000-0000-0000-000000500001
+        type: string
+      is_active:
+        example: true
+        type: boolean
+      link_type:
+        example: dormitory
+        type: string
+      platform:
+        example: telegram
+        type: string
+      title:
+        example: Чат общежития №8
+        type: string
+      url:
+        example: https://t.me/dorm8_mock
+        type: string
+    type: object
+  api.ChatLinkListResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/api.ChatLinkItem'
+        type: array
+    type: object
+  api.CleaningDuty:
+    properties:
+      dormitory_id:
+        example: b0000000-0000-0000-0000-000000000001
+        type: string
+      duty_date:
+        example: "2026-08-15"
+        type: string
+      id:
+        example: duty-uuid
+        type: string
+      room_id:
+        example: b0000000-0000-0000-0000-000000030001
+        type: string
+      room_number:
+        example: "101"
+        type: string
+      status:
+        example: pending
+        type: string
+    type: object
+  api.CleaningExemption:
+    properties:
+      end_date:
+        example: "2026-08-07"
+        type: string
+      id:
+        example: exemption-uuid
+        type: string
+      reason:
+        example: Ремонт
+        type: string
+      room_id:
+        example: b0000000-0000-0000-0000-000000030001
+        type: string
+      start_date:
+        example: "2026-08-01"
+        type: string
+    type: object
+  api.CleaningExemptionResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/api.CleaningExemption'
+        type: array
+    type: object
+  api.CleaningPenalty:
+    properties:
+      count:
+        example: 1
+        type: integer
+      id:
+        example: penalty-uuid
+        type: string
+      reason:
+        example: Невыполнение дежурства
+        type: string
+      room_id:
+        example: b0000000-0000-0000-0000-000000030001
+        type: string
+      status:
+        example: pending
+        type: string
+    type: object
+  api.CleaningPenaltyResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/api.CleaningPenalty'
+        type: array
+    type: object
+  api.CleaningScheduleResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/api.CleaningDuty'
+        type: array
+    type: object
+  api.DormitoryItem:
+    properties:
+      address:
+        example: ул. Лермонтова, д. 80
+        type: string
+      eis_dormitory_code:
+        example: EIS-BLD-8
+        type: string
+      id:
+        example: b0000000-0000-0000-0000-000000000001
+        type: string
+      is_active:
+        example: true
+        type: boolean
+      name:
+        example: Общежитие №8
+        type: string
+    type: object
+  api.DormitoryListResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/api.DormitoryItem'
+        type: array
+    type: object
+  api.EmployeeDormitoriesResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/api.EmployeeDormitory'
+        type: array
+    type: object
+  api.EmployeeDormitory:
+    properties:
+      dormitory_id:
+        example: b0000000-0000-0000-0000-000000000001
+        type: string
+      dormitory_name:
+        example: Общежитие №8
+        type: string
+      role:
+        example: commandant
+        type: string
+    type: object
+  api.EmployeeInfo:
+    properties:
+      id:
+        example: eb008023-1c16-4d89-a9ef-aeea6b7be792
+        type: string
+      position:
+        example: Заведующий общежитием
+        type: string
+      primary_dormitory_id:
+        example: b0000000-0000-0000-0000-000000000001
+        type: string
+      role:
+        example: commandant
+        type: string
+      user_id:
+        example: abc6efcd-487b-4b42-a30c-3dbb0a60cfdd
+        type: string
+    type: object
+  api.EmployeeInfoResponse:
+    properties:
+      data:
+        $ref: '#/definitions/api.EmployeeInfo'
+    type: object
+  api.ErrorResponse:
+    properties:
+      code:
+        example: 404
+        type: integer
+      error:
+        example: dormitory not found
+        type: string
+      success:
+        example: false
+        type: boolean
+    type: object
+  api.FloorItem:
+    properties:
+      dormitory_id:
+        example: b0000000-0000-0000-0000-000000000001
+        type: string
+      floor_number:
+        example: 1
+        type: integer
+      id:
+        example: b0000000-0000-0000-0000-000000010001
+        type: string
+    type: object
+  api.FloorListResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/api.FloorItem'
+        type: array
+    type: object
+  api.LaundryBooking:
+    properties:
+      booking_id:
+        example: booking-uuid
+        type: string
+      machine_number:
+        example: "1"
+        type: string
+      slot_date:
+        example: "2026-08-06"
+        type: string
+      slot_end:
+        example: "11:00"
+        type: string
+      slot_start:
+        example: "10:00"
+        type: string
+    type: object
+  api.LaundryBookingResponse:
+    properties:
+      data:
+        $ref: '#/definitions/api.LaundryBooking'
+    type: object
+  api.LaundrySettingsItem:
+    properties:
+      booking_end_time:
+        example: "23:00:00"
+        type: string
+      booking_same_day_only:
+        example: true
+        type: boolean
+      booking_start_time:
+        example: "07:00:00"
+        type: string
+      default_duration_minutes:
+        example: 60
+        type: integer
+      dormitory_id:
+        example: b0000000-0000-0000-0000-000000000001
+        type: string
+      id:
+        example: b0000000-0000-0000-0000-000000300001
+        type: string
+    type: object
+  api.LaundrySettingsResponse:
+    properties:
+      data:
+        $ref: '#/definitions/api.LaundrySettingsItem'
+    type: object
+  api.LaundrySlot:
+    properties:
+      machine_id:
+        example: b0000000-0000-0000-0000-000000200001
+        type: string
+      machine_number:
+        example: "1"
+        type: string
+      slot_end:
+        example: "08:00"
+        type: string
+      slot_start:
+        example: "07:00"
+        type: string
+    type: object
+  api.LaundrySlotListResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/api.LaundrySlot'
+        type: array
+    type: object
+  api.MaterialItem:
+    properties:
+      condition:
+        example: хорошее
+        type: string
+      id:
+        example: b0000000-0000-0000-0000-000000040001
+        type: string
+      inventory_number:
+        example: MOCK-INV-101-001
+        type: string
+      item_name:
+        example: Кровать
+        type: string
+      quantity:
+        example: 3
+        type: integer
+      room_id:
+        example: b0000000-0000-0000-0000-000000030001
+        type: string
+    type: object
+  api.MaterialItemListResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/api.MaterialItem'
+        type: array
+    type: object
+  api.MaterialItemResponse:
+    properties:
+      data:
+        $ref: '#/definitions/api.MaterialItem'
+    type: object
+  api.MessageResponse:
+    properties:
+      message:
+        example: booking cancelled
+        type: string
+    type: object
+  api.ReferenceMaterialItem:
+    properties:
+      category:
+        example: Правила
+        type: string
+      description:
+        example: Правила внутреннего распорядка.
+        type: string
+      dormitory_id:
+        example: b0000000-0000-0000-0000-000000000001
+        type: string
+      id:
+        example: b0000000-0000-0000-0000-000000600001
+        type: string
+      name:
+        example: Правила проживания
+        type: string
+      ordinal:
+        example: 1
+        type: integer
+    type: object
+  api.ReferenceMaterialListResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/api.ReferenceMaterialItem'
+        type: array
+    type: object
+  api.ResidentDebt:
+    properties:
+      amount:
+        example: 1500
+        type: number
+      description:
+        example: Задолженность за проживание
+        type: string
+      id:
+        example: debt-uuid
+        type: string
+      period:
+        example: 2025-01
+        type: string
+      resident_id:
+        example: resident-uuid
+        type: string
+    type: object
+  api.ResidentDebtResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/api.ResidentDebt'
+        type: array
+    type: object
+  api.ResidentProfile:
+    properties:
+      contract_end:
+        example: "2025-06-30"
+        type: string
+      contract_num:
+        example: K-2024-001
+        type: string
+      contract_start:
+        example: "2024-09-01"
+        type: string
+      dormitory_id:
+        example: b0000000-0000-0000-0000-000000000001
+        type: string
+      id:
+        example: resident-uuid
+        type: string
+      room_id:
+        example: b0000000-0000-0000-0000-000000030001
+        type: string
+      user_id:
+        example: abc6efcd-487b-4b42-a30c-3dbb0a60cfdd
+        type: string
+    type: object
+  api.ResidentProfileResponse:
+    properties:
+      data:
+        $ref: '#/definitions/api.ResidentProfile'
+    type: object
+  api.RoleItem:
+    properties:
+      display_name:
+        example: Заведующий
+        type: string
+      id:
+        example: r-commandant
+        type: string
+      is_system:
+        example: true
+        type: boolean
+      name:
+        example: commandant
+        type: string
+      priority:
+        example: 100
+        type: integer
+      target_type:
+        example: employee
+        type: string
+    type: object
+  api.RoleListResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/api.RoleItem'
+        type: array
+    type: object
+  api.RoomItem:
+    properties:
+      capacity:
+        example: 3
+        type: integer
+      dormitory_id:
+        example: b0000000-0000-0000-0000-000000000001
+        type: string
+      floor_id:
+        example: b0000000-0000-0000-0000-000000010001
+        type: string
+      id:
+        example: b0000000-0000-0000-0000-000000030001
+        type: string
+      is_active:
+        example: true
+        type: boolean
+      room_number:
+        example: "101"
+        type: string
+    type: object
+  api.RoomListResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/api.RoomItem'
+        type: array
+    type: object
+  api.RoomResidentItem:
+    properties:
+      first_name:
+        example: Артём
+        type: string
+      id:
+        example: resident-uuid
+        type: string
+      last_name:
+        example: Иванов
+        type: string
+      phone:
+        example: "79001234501"
+        type: string
+      room_id:
+        example: b0000000-0000-0000-0000-000000030001
+        type: string
+      user_id:
+        example: abc6efcd-487b-4b42-a30c-3dbb0a60cfdd
+        type: string
+    type: object
+  api.RoomResidentsResponse:
+    properties:
+      residents:
+        items:
+          $ref: '#/definitions/api.RoomResidentItem'
+        type: array
+    type: object
+  api.StaffItem:
+    properties:
+      display_name:
+        example: Заведующий
+        type: string
+      first_name:
+        example: Данил
+        type: string
+      last_name:
+        example: Высоких
+        type: string
+      phone:
+        example: "79025643215"
+        type: string
+      role:
+        example: commandant
+        type: string
+      user_id:
+        example: abc6efcd-487b-4b42-a30c-3dbb0a60cfdd
+        type: string
+    type: object
+  api.StaffListResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/api.StaffItem'
+        type: array
+    type: object
+  api.WashingMachineItem:
+    properties:
+      dormitory_id:
+        example: b0000000-0000-0000-0000-000000000001
+        type: string
+      duration_minutes:
+        example: 60
+        type: integer
+      floor_id:
+        example: b0000000-0000-0000-0000-000000010001
+        type: string
+      id:
+        example: b0000000-0000-0000-0000-000000200001
+        type: string
+      is_active:
+        example: true
+        type: boolean
+      machine_number:
+        example: "1"
+        type: string
+    type: object
+  api.WashingMachineListResponse:
+    properties:
+      data:
+        items:
+          $ref: '#/definitions/api.WashingMachineItem'
+        type: array
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: REST API for dormitory management mini-app (MAX Messenger).
+  title: Dormitory Bot API
+  version: "1.0"
+paths:
+  /auth/me:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.AuthMeResponse'
+      security:
+      - BearerAuth: []
+      summary: Current user from JWT
+      tags:
+      - Auth
+  /auth/miniapp:
+    post:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.AuthMiniappResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+      summary: Mini-app login (exchange launch token for JWT)
+      tags:
+      - Auth
+  /auth/verify:
+    post:
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.AuthVerifyResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+      summary: Verify phone, get launch token
+      tags:
+      - Auth
+  /chat-links:
+    get:
+      parameters:
+      - description: Dormitory UUID
+        in: query
+        name: dormitory_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ChatLinkListResponse'
+      summary: Chat links for a dormitory
+      tags:
+      - ChatLinks
+  /cleaning/exemptions:
+    get:
+      parameters:
+      - description: Dormitory UUID
+        in: query
+        name: dormitory_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.CleaningExemptionResponse'
+      summary: Cleaning duty exemptions
+      tags:
+      - Cleaning
+  /cleaning/penalties:
+    get:
+      parameters:
+      - description: Dormitory UUID
+        in: query
+        name: dormitory_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.CleaningPenaltyResponse'
+      summary: Penalty cleaning duties
+      tags:
+      - Cleaning
+  /cleaning/schedule:
+    get:
+      parameters:
+      - description: Dormitory UUID
+        in: query
+        name: dormitory_id
+        required: true
+        type: string
+      - description: Month 1-12
+        in: query
+        name: month
+        type: integer
+      - description: Year
+        in: query
+        name: year
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.CleaningScheduleResponse'
+      summary: Cleaning schedule
+      tags:
+      - Cleaning
+  /dormitories:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.DormitoryListResponse'
+      summary: List all active dormitories
+      tags:
+      - Dormitories
+  /dormitories/{id}:
+    get:
+      parameters:
+      - description: Dormitory UUID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.DormitoryItem'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+      summary: Get dormitory by UUID
+      tags:
+      - Dormitories
+  /dormitories/{id}/floors:
+    get:
+      parameters:
+      - description: Dormitory UUID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.FloorListResponse'
+      summary: Floors of a dormitory
+      tags:
+      - Dormitories
+  /dormitories/{id}/staff:
+    get:
+      parameters:
+      - description: Dormitory UUID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.StaffListResponse'
+      summary: Staff of a dormitory
+      tags:
+      - Dormitories
+  /employees/{id}:
+    get:
+      parameters:
+      - description: Employee UUID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.EmployeeInfoResponse'
+      security:
+      - BearerAuth: []
+      summary: Employee profile
+      tags:
+      - Employees
+  /employees/{id}/dormitories:
+    get:
+      parameters:
+      - description: Employee UUID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.EmployeeDormitoriesResponse'
+      security:
+      - BearerAuth: []
+      summary: Employee's assigned dormitories
+      tags:
+      - Employees
+  /floors/{id}/rooms:
+    get:
+      parameters:
+      - description: Floor UUID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.RoomListResponse'
+      summary: Rooms on a floor
+      tags:
+      - Rooms
+  /laundry/bookings:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Booking
+        in: body
+        name: body
+        required: true
+        schema:
+          properties:
+            date:
+              type: string
+            machine_id:
+              type: string
+            slot_end:
+              type: string
+            slot_start:
+              type: string
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.LaundryBookingResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+      security:
+      - BearerAuth: []
+      summary: Book a laundry slot
+      tags:
+      - Laundry
+  /laundry/bookings/{id}:
+    delete:
+      parameters:
+      - description: Booking UUID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.MessageResponse'
+      security:
+      - BearerAuth: []
+      summary: Cancel laundry booking
+      tags:
+      - Laundry
+  /laundry/machines:
+    get:
+      parameters:
+      - description: Dormitory UUID
+        in: query
+        name: dormitory_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.WashingMachineListResponse'
+      summary: Washing machines in a dormitory
+      tags:
+      - Laundry
+  /laundry/settings:
+    get:
+      parameters:
+      - description: Dormitory UUID
+        in: query
+        name: dormitory_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.LaundrySettingsResponse'
+      summary: Laundry settings for a dormitory
+      tags:
+      - Laundry
+  /laundry/slots:
+    get:
+      parameters:
+      - description: Dormitory UUID
+        in: query
+        name: dormitory_id
+        required: true
+        type: string
+      - description: Date YYYY-MM-DD
+        in: query
+        name: date
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.LaundrySlotListResponse'
+      summary: Available laundry time slots
+      tags:
+      - Laundry
+  /reference-materials:
+    get:
+      parameters:
+      - description: Dormitory UUID
+        in: query
+        name: dormitory_id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ReferenceMaterialListResponse'
+      summary: Reference materials for a dormitory
+      tags:
+      - References
+  /residents/{id}:
+    get:
+      parameters:
+      - description: Resident UUID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ResidentProfileResponse'
+      security:
+      - BearerAuth: []
+      summary: Resident profile
+      tags:
+      - Residents
+  /residents/{id}/debt:
+    get:
+      parameters:
+      - description: Resident UUID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.ResidentDebtResponse'
+      summary: Resident financial debt
+      tags:
+      - Residents
+  /roles:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.RoleListResponse'
+      summary: All system and custom roles
+      tags:
+      - Roles
+  /rooms/{id}:
+    get:
+      parameters:
+      - description: Room UUID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.RoomItem'
+      summary: Get room by UUID
+      tags:
+      - Rooms
+  /rooms/{id}/items:
+    get:
+      parameters:
+      - description: Room UUID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.MaterialItemListResponse'
+      summary: Room material items
+      tags:
+      - Rooms
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Room UUID
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Item data
+        in: body
+        name: body
+        required: true
+        schema:
+          properties:
+            condition:
+              type: string
+            inventory_number:
+              type: string
+            name:
+              type: string
+            quantity:
+              type: integer
+          type: object
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.MaterialItemResponse'
+      security:
+      - BearerAuth: []
+      summary: Add material item to room
+      tags:
+      - Rooms
+  /rooms/{id}/residents:
+    get:
+      parameters:
+      - description: Room UUID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.RoomResidentsResponse'
+      summary: Residents of a room
+      tags:
+      - Rooms
+  /rooms/search:
+    get:
+      parameters:
+      - description: Room number substring
+        in: query
+        name: q
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.RoomListResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/api.ErrorResponse'
+      summary: Search rooms by number
+      tags:
+      - Rooms
+securityDefinitions:
+  BearerAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

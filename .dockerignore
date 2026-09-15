@@ -1,0 +1,12 @@
+frontend/node_modules
+frontend/public
+donor
+*.bpmn
+*.md
+.git
+.gitignore
+bin
+*.env
+docker-compose.yml
+Makefile
+diagram(5).bpmn
